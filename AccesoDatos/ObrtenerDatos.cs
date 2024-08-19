@@ -106,7 +106,6 @@ namespace AccesoDatos
                 sql = sql + "      ,[LastName] = @lastName " + "\n";
                 sql = sql + "      ,[Suffix] = @suffix " + "\n";
                 sql = sql + "      ,[EmailPromotion] = @emailPromotion " + "\n";
-                sql = sql + "      ,[rowguid] = @RowGuid " + "\n";
                 sql = sql + "      ,[ModifiedDate] = @ModifiedDate " + "\n";
                 sql = sql + " WHERE [BusinessEntityID] = @BusinessEntityID";
 
@@ -122,7 +121,6 @@ namespace AccesoDatos
                     comando.Parameters.AddWithValue("@LastName", lastName);
                     comando.Parameters.AddWithValue("@Suffix", string.IsNullOrEmpty(suffix) ? (object)DBNull.Value : suffix);
                     comando.Parameters.AddWithValue("@EmailPromotion", emailPromotion);
-                    comando.Parameters.AddWithValue("@RowGuid", Guid.NewGuid()); // Genera un nuevo GUID
                     comando.Parameters.AddWithValue("@ModifiedDate", DateTime.Now);
 
                     // Abrir la conexión
