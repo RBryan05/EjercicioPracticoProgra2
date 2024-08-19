@@ -91,6 +91,62 @@ namespace AccesoDatos
             }
         }
 
+        public int EditarRegistro(int BusinessEntityID, string personType, bool nameStyle, string title, string firstName, string middleName, string lastName, string suffix, int emailPromotion)
+        {
+            using (SqlConnection conexion = new SqlConnection(connectionString))
+            {
+                String sql = "";
+                sql = sql + "UPDATE [Person].[Person] " + "\n";
+                sql = sql + "   SET [BusinessEntityID] = @BusinessEntityID " + "\n";
+                sql = sql + "      ,[PersonType] = @personType " + "\n";
+                sql = sql + "      ,[NameStyle] = @nameStyle> " + "\n";
+                sql = sql + "      ,[Title] = @title " + "\n";
+                sql = sql + "      ,[FirstName] = @firstName " + "\n";
+                sql = sql + "      ,[MiddleName] = @middleName " + "\n";
+                sql = sql + "      ,[LastName] = @lastName " + "\n";
+                sql = sql + "      ,[Suffix] = @suffix " + "\n";
+                sql = sql + "      ,[EmailPromotion] = @emailPromotion " + "\n";
+                sql = sql + "      ,[rowguid] = @RowGuid " + "\n";
+                sql = sql + "      ,[ModifiedDate] = @ModifiedDate " + "\n";
+                sql = sql + " WHERE [BusinessEntityID] = @BusinessEntityID";
+
+                using (SqlCommand comando = new SqlCommand(sql, conexion))
+                {
+                    // Asignar valores a los parámetros, manejando valores nulos con condicionales
+                    comando.Parameters.AddWithValue("BusinessEntityID", BusinessEntityID);
+                    comando.Parameters.AddWithValue("@PersonType", personType);
+                    comando.Parameters.AddWithValue("@NameStyle", nameStyle);
+                    comando.Parameters.AddWithValue("@Title", string.IsNullOrEmpty(title) ? (object)DBNull.Value : title);
+                    comando.Parameters.AddWithValue("@FirstName", firstName);
+                    comando.Parameters.AddWithValue("@MiddleName", string.IsNullOrEmpty(middleName) ? (object)DBNull.Value : middleName);
+                    comando.Parameters.AddWithValue("@LastName", lastName);
+                    comando.Parameters.AddWithValue("@Suffix", string.IsNullOrEmpty(suffix) ? (object)DBNull.Value : suffix);
+                    comando.Parameters.AddWithValue("@EmailPromotion", emailPromotion);
+                    comando.Parameters.AddWithValue("@RowGuid", Guid.NewGuid()); // Genera un nuevo GUID
+                    comando.Parameters.AddWithValue("@ModifiedDate", DateTime.Now);
+
+                    // Abrir la conexión
+                    conexion.Open();
+
+                    // Ejecutar el comando
+                    int filasAfectadas = comando.ExecuteNonQuery();
+
+                    if (filasAfectadas > 0)
+                    {
+                        Console.WriteLine("Registro eliminado exitosamente.");
+                        conexion.Close();
+                        return 1;
+                    }
+                    else
+                    {
+                        Console.WriteLine("No se pudo eliminar el registro.");
+                        conexion.Close();
+                        return 0;
+                    }
+                }
+            }
+        }
+
         public string AgregarPersona(int BusinessEntityID, string personType, bool nameStyle, string title, string firstName, string middleName, string lastName, string suffix, int emailPromotion)
         {
             using (SqlConnection conexion = new SqlConnection(connectionString))

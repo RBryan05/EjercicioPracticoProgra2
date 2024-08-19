@@ -14,15 +14,33 @@ namespace EjercicioPractico
     public partial class AgregarPersona : Form
     {
         ObtenerDatos _obtenerDatos;
-        public AgregarPersona()
+        int _id;
+        public AgregarPersona(int id = 0)
         {
-            InitializeComponent();            
+            _id = id;
+            InitializeComponent();
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            _obtenerDatos = new ObtenerDatos();
-
+            if (_id > 0)
+            {
+                int resultado = _productoLOG.EditarProducto(producto, _id);
+                if (resultado > 0)
+                {
+                    MessageBox.Show("Producto Editado con Exito", "Tienda | Edicion Productos",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("No se logro editar el producto", "Tienda | Edicion Productos",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                _obtenerDatos = new ObtenerDatos();
 
                 int BusinessEntityID = int.Parse(businessEntityIDTextBox.Text);
                 string personType = personTypeTextBox.Text;
@@ -36,7 +54,7 @@ namespace EjercicioPractico
 
                 _obtenerDatos.AgregarBusinessEntityID();
 
-            string mensaje = _obtenerDatos.AgregarPersona(BusinessEntityID, personType, nameStyle, title, firstName, middleName, lastName, suffix, emailPromotion);
+                string mensaje = _obtenerDatos.AgregarPersona(BusinessEntityID, personType, nameStyle, title, firstName, middleName, lastName, suffix, emailPromotion);
 
 
                 if (mensaje == "true")
@@ -47,8 +65,7 @@ namespace EjercicioPractico
                 {
                     MessageBox.Show($"Ocurrio un error {mensaje}", "Registro Personas");
                 }
-
-            
+            }
         }
     }
 }

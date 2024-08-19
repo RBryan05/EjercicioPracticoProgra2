@@ -38,7 +38,8 @@ namespace EjercicioPractico
 
                     if (dgvPersons.Columns[e.ColumnIndex].Name.Equals("Editar"))
                     {
-                       
+                        AgregarPersona objRegistroProducto = new AgregarPersona(id);
+                        objRegistroProducto.ShowDialog();
                     }
                     else if (dgvPersons.Columns[e.ColumnIndex].Name.Equals("Eliminar"))
                     {
