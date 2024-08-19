@@ -56,6 +56,41 @@ namespace AccesoDatos
             }
         }
 
+        public int eliminarPersona(int BusinessEntityID)
+        {
+            using (SqlConnection conexion = new SqlConnection(connectionString))
+            {
+                string sql = @"
+                DELETE FROM [Person].[Person] 
+                WHERE BusinessEntityID = @BusinessEntityID";
+
+                using (SqlCommand comando = new SqlCommand(sql, conexion))
+                {
+                    // Asignar valores a los parámetros, manejando valores nulos con condicionales
+                    comando.Parameters.AddWithValue("BusinessEntityID", BusinessEntityID);
+
+                    // Abrir la conexión
+                    conexion.Open();
+
+                    // Ejecutar el comando
+                    int filasAfectadas = comando.ExecuteNonQuery();
+
+                    if (filasAfectadas > 0)
+                    {
+                        Console.WriteLine("Registro eliminado exitosamente.");
+                        conexion.Close();
+                        return 1;
+                    }
+                    else
+                    {
+                        Console.WriteLine("No se pudo eliminar el registro.");
+                        conexion.Close();
+                        return 0;
+                    }
+                }
+            }
+        }
+
         public string AgregarPersona(int BusinessEntityID, string personType, bool nameStyle, string title, string firstName, string middleName, string lastName, string suffix, int emailPromotion)
         {
             using (SqlConnection conexion = new SqlConnection(connectionString))

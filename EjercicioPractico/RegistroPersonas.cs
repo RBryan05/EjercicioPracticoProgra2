@@ -27,5 +27,55 @@ namespace EjercicioPractico
             AgregarPersona agregarPersona = new AgregarPersona();
             agregarPersona.ShowDialog();
         }
+
+        private void dgvPersons_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+                {
+                    int id = int.Parse(dgvPersons.Rows[e.RowIndex].Cells["businessEntityID"].Value.ToString());
+
+                    if (dgvPersons.Columns[e.ColumnIndex].Name.Equals("Editar"))
+                    {
+                       
+                    }
+                    else if (dgvPersons.Columns[e.ColumnIndex].Name.Equals("Eliminar"))
+                    {
+                        var desicion = MessageBox.Show("¿Está seguro que desea eliminar el registro?", "Personas",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                        _obtenerDatos = new ObtenerDatos();
+
+                        int resultado = 0;
+
+                        if (desicion != DialogResult.Yes)
+                        {
+                            MessageBox.Show("El registro se continua mostrando en el listado.", "Personas",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            resultado = _obtenerDatos.eliminarPersona(id);
+
+                            if (resultado > 0)
+                            {
+                                MessageBox.Show("El registro eliminado con exito.", "Personas",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                dgvPersons.DataSource = _obtenerDatos.ObtenerPersonas();
+                            }
+                            else
+                            {
+                                MessageBox.Show("No se logró eliminar el registro.", "Personas",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ocurrio un error {ex}");
+            }
+        }
     }
 }
