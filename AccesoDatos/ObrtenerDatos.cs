@@ -27,9 +27,6 @@ namespace AccesoDatos
                         comando.Parameters.AddWithValue("@RowGuid", Guid.NewGuid()); // Genera un nuevo GUID
                         comando.Parameters.AddWithValue("@ModifiedDate", DateTime.Now);
 
-                        // Abrir la conexión
-                        conexion.Open();
-
                         // Ejecutar el comando
                         int filasAfectadas = comando.ExecuteNonQuery();
 
@@ -63,9 +60,6 @@ namespace AccesoDatos
                 {
                     // Asignar valores a los parámetros, manejando valores nulos con condicionales
                     comando.Parameters.AddWithValue("BusinessEntityID", BusinessEntityID);
-
-                    // Abrir la conexión
-                    conexion.Open();
 
                     // Ejecutar el comando
                     int filasAfectadas = comando.ExecuteNonQuery();

@@ -36,9 +36,10 @@ namespace EjercicioPractico
                 if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
                 {
                     int id = int.Parse(dgvPersons.Rows[e.RowIndex].Cells["businessEntityID"].Value.ToString());
+
                     if (dgvPersons.Columns[e.ColumnIndex].Name.Equals("Eliminar"))
                     {
-                        var desicion = MessageBox.Show("¿Está seguro que desea eliminar el registro?", "Personas",
+                        var desicion = MessageBox.Show("¿Está seguro que desea eliminar el registro?", "Registro Personas",
                         MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                         _obtenerDatos = new ObtenerDatos();
 
@@ -46,7 +47,7 @@ namespace EjercicioPractico
 
                         if (desicion != DialogResult.Yes)
                         {
-                            MessageBox.Show("El registro se continua mostrando en el listado.", "Personas",
+                            MessageBox.Show("El registro se continua mostrando en el listado.", "Registro Personas",
                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else
@@ -55,13 +56,13 @@ namespace EjercicioPractico
 
                             if (resultado > 0)
                             {
-                                MessageBox.Show("El registro eliminado con exito.", "Personas",
+                                MessageBox.Show("El registro eliminado con exito.", "Registro Personas",
                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 dgvPersons.DataSource = _obtenerDatos.ObtenerPersonas();
                             }
                             else
                             {
-                                MessageBox.Show("No se logró eliminar el registro.", "Personas",
+                                MessageBox.Show("No se logró eliminar el registro.", "Registro Personas",
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                         }
@@ -128,6 +129,22 @@ namespace EjercicioPractico
             }
         }
 
+        private void Limpiar()
+        {
+            txtPersonType.Text = string.Empty;
+            ckbNameStyle.Checked = false;
+            txtTitle.Text = string.Empty;
+            txtFirstName.Text = string.Empty;
+            txtMiddleName.Text = string.Empty;
+            txtLastName.Text = string.Empty;
+            txtSuffix.Text = string.Empty;
+            txtEmailPromotion.Text = string.Empty;
+            txtAdditionalContactInfo.Text = string.Empty;
+            txtDemographics.Text = string.Empty;
+            txtRowguid.Text = string.Empty;
+            dtpFechaModificacion.Value = DateTime.Now;
+        }
+
         private void btnInsertar_Click(object sender, EventArgs e)
         {
             try
@@ -152,6 +169,7 @@ namespace EjercicioPractico
                 if (mensaje == "true")
                 {
                     MessageBox.Show("Persona agregada exitosamente", "Registro Personas");
+                    Limpiar();
                 }
                 else
                 {
@@ -167,28 +185,81 @@ namespace EjercicioPractico
 
         private void btnActualizar_Click_1(object sender, EventArgs e)
         {
-            _obtenerDatos = new ObtenerDatos();
-
-            int BusinessEntityID = int.Parse(txtBuscar.Text);
-            string personType = txtPersonType.Text;
-            bool nameStyle = ckbNameStyle.Checked;
-            string title = txtTitle.Text;
-            string firstName = txtFirstName.Text;
-            string middleName = txtMiddleName.Text;
-            string lastName = txtLastName.Text;
-            string suffix = txtSuffix.Text;
-            int emailPromotion = int.Parse(txtEmailPromotion.Text);
-
-            int mensaje = _obtenerDatos.EditarRegistro(BusinessEntityID, personType, nameStyle, title, firstName, middleName, lastName, suffix, emailPromotion);
-
-
-            if (mensaje > 0)
+            try
             {
-                MessageBox.Show("Persona editada exitosamente", "Registro Personas");
+                _obtenerDatos = new ObtenerDatos();
+
+                int BusinessEntityID = int.Parse(txtBuscar.Text);
+                string personType = txtPersonType.Text;
+                bool nameStyle = ckbNameStyle.Checked;
+                string title = txtTitle.Text;
+                string firstName = txtFirstName.Text;
+                string middleName = txtMiddleName.Text;
+                string lastName = txtLastName.Text;
+                string suffix = txtSuffix.Text;
+                int emailPromotion = int.Parse(txtEmailPromotion.Text);
+
+                int mensaje = _obtenerDatos.EditarRegistro(BusinessEntityID, personType, nameStyle, title, firstName, middleName, lastName, suffix, emailPromotion);
+
+
+                if (mensaje > 0)
+                {
+                    MessageBox.Show("Persona editada exitosamente", "Registro Personas",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Limpiar();
+                }
+                else
+                {
+                    MessageBox.Show($"Ocurrio un error {mensaje}", "Registro Personas",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            else
+            catch
             {
-                MessageBox.Show($"Ocurrio un error {mensaje}", "Registro Personas");
+                MessageBox.Show("Ingrese los datos correctamente.", "Registro Persona",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int id = int.Parse(txtBuscar.Text);
+
+                var desicion = MessageBox.Show("¿Está seguro que desea eliminar el registro?", "Registro Persona",
+                            MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                _obtenerDatos = new ObtenerDatos();
+
+                int resultado = 0;
+
+                if (desicion != DialogResult.Yes)
+                {
+                    MessageBox.Show("El registro se continua mostrando en el listado.", "Registro Persona",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    resultado = _obtenerDatos.eliminarPersona(id);
+
+                    if (resultado > 0)
+                    {
+                        MessageBox.Show("El registro eliminado con exito.", "Registro Persona",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        dgvPersons.DataSource = _obtenerDatos.ObtenerPersonas();
+                        Limpiar();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se logró eliminar el registro.", "Registro Persona",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Ingrese los datos correctamente.", "Registro Persona",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
