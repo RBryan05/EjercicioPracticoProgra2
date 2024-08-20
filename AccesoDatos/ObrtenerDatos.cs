@@ -48,7 +48,7 @@ namespace AccesoDatos
             }
         }
 
-        public int eliminarPersona(int BusinessEntityID)
+        public int EliminarPersona(int BusinessEntityID)
         {
             using (var conexion = DataBase.GetSqlConnection())
             {

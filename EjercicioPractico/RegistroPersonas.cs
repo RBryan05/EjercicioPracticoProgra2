@@ -52,7 +52,7 @@ namespace EjercicioPractico
                         }
                         else
                         {
-                            resultado = _obtenerDatos.eliminarPersona(id);
+                            resultado = _obtenerDatos.EliminarPersona(id);
 
                             if (resultado > 0)
                             {
@@ -240,7 +240,7 @@ namespace EjercicioPractico
                 }
                 else
                 {
-                    resultado = _obtenerDatos.eliminarPersona(id);
+                    resultado = _obtenerDatos.EliminarPersona(id);
 
                     if (resultado > 0)
                     {
