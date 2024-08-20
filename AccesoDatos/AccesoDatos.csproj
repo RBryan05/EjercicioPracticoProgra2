@@ -53,12 +53,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdventureWorks2019DataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AdventureWorks2019DataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="BusinessEntity.cs" />
+    <Compile Include="DataBase.cs" />
     <Compile Include="ObrtenerDatos.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -69,17 +65,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="AdventureWorks2019DataSet.xsc">
-      <DependentUpon>AdventureWorks2019DataSet.xsd</DependentUpon>
-    </None>
-    <None Include="AdventureWorks2019DataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>AdventureWorks2019DataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="AdventureWorks2019DataSet.xss">
-      <DependentUpon>AdventureWorks2019DataSet.xsd</DependentUpon>
-    </None>
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
