@@ -42,6 +42,7 @@
             System.Windows.Forms.Label label4;
             this.brnAgregar = new System.Windows.Forms.Button();
             this.dgvPersons = new System.Windows.Forms.DataGridView();
+            this.Eliminar = new System.Windows.Forms.DataGridViewImageColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -67,7 +68,6 @@
             this.dtpFechaModificacion = new System.Windows.Forms.DateTimePicker();
             this.btnInsertar = new System.Windows.Forms.Button();
             this.btnActualizar = new System.Windows.Forms.Button();
-            this.Eliminar = new System.Windows.Forms.DataGridViewImageColumn();
             this.btnEliminar = new System.Windows.Forms.Button();
             personTypeLabel = new System.Windows.Forms.Label();
             nameStyleLabel = new System.Windows.Forms.Label();
@@ -235,6 +235,17 @@
             this.dgvPersons.Size = new System.Drawing.Size(931, 493);
             this.dgvPersons.TabIndex = 1;
             this.dgvPersons.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPersons_CellContentClick);
+            // 
+            // Eliminar
+            // 
+            this.Eliminar.HeaderText = "Eliminar";
+            this.Eliminar.Image = global::EjercicioPractico.Properties.Resources.delete;
+            this.Eliminar.MinimumWidth = 8;
+            this.Eliminar.Name = "Eliminar";
+            this.Eliminar.ReadOnly = true;
+            this.Eliminar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Eliminar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Eliminar.Width = 50;
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -411,6 +422,7 @@
             this.txtDemographics.Location = new System.Drawing.Point(1090, 353);
             this.txtDemographics.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtDemographics.Name = "txtDemographics";
+            this.txtDemographics.ReadOnly = true;
             this.txtDemographics.Size = new System.Drawing.Size(199, 20);
             this.txtDemographics.TabIndex = 70;
             // 
@@ -437,7 +449,7 @@
             this.btnInsertar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.btnInsertar.Location = new System.Drawing.Point(972, 435);
-            this.btnInsertar.Margin = new System.Windows.Forms.Padding(2);
+            this.btnInsertar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnInsertar.Name = "btnInsertar";
             this.btnInsertar.Size = new System.Drawing.Size(129, 60);
             this.btnInsertar.TabIndex = 75;
@@ -450,7 +462,7 @@
             this.btnActualizar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.btnActualizar.Location = new System.Drawing.Point(1158, 435);
-            this.btnActualizar.Margin = new System.Windows.Forms.Padding(2);
+            this.btnActualizar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnActualizar.Name = "btnActualizar";
             this.btnActualizar.Size = new System.Drawing.Size(129, 60);
             this.btnActualizar.TabIndex = 76;
@@ -458,23 +470,12 @@
             this.btnActualizar.UseVisualStyleBackColor = true;
             this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click_1);
             // 
-            // Eliminar
-            // 
-            this.Eliminar.HeaderText = "Eliminar";
-            this.Eliminar.Image = global::EjercicioPractico.Properties.Resources.delete;
-            this.Eliminar.MinimumWidth = 8;
-            this.Eliminar.Name = "Eliminar";
-            this.Eliminar.ReadOnly = true;
-            this.Eliminar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Eliminar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Eliminar.Width = 50;
-            // 
             // btnEliminar
             // 
             this.btnEliminar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.btnEliminar.Location = new System.Drawing.Point(1070, 522);
-            this.btnEliminar.Margin = new System.Windows.Forms.Padding(2);
+            this.btnEliminar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(129, 60);
             this.btnEliminar.TabIndex = 77;
@@ -486,7 +487,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1305, 647);
+            this.ClientSize = new System.Drawing.Size(1312, 647);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnActualizar);
             this.Controls.Add(this.btnInsertar);
@@ -522,7 +523,7 @@
             this.Controls.Add(this.dgvPersons);
             this.Controls.Add(this.brnAgregar);
             this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.MinimumSize = new System.Drawing.Size(1142, 680);
+            this.MinimumSize = new System.Drawing.Size(1140, 674);
             this.Name = "RegistroPersonas";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
